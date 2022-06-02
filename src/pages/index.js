@@ -1,90 +1,42 @@
 import * as React from "react"
-import image from "../images/1.jpeg"
-import styled from 'styled-components'
+
+import Article from "../components/Article/Article"
 import "./css/Global.css"
+import axios from 'axios';
 
-// styles
-const Styledarticle = styled.article`
-border: 1px solid #000;
-border-bottom: none;
-padding: 10px;
-background: white;
 
-`
-const Styledfigure = styled.figure`
-  margin:0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-    img{
-      width: 96%;
-      margin: 15px 0;
-      border-radius: 5px;
-    }
-`
-const StyledFigcaptionContainer = styled.div`
-text-align: center;
-    color: #979797;
-    figcaption{
-      margin-bottom: 3px;
-    }
-    `
+const api = axios.create({
+  baseURL: 'https://api.harvardartmuseums.org',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+  params: {
+    'apikey': '04ff7f1b-fba1-49cc-bc70-84573e5e0ef6',
+  },
+});
+
+async function getArtWorks() {
+  const { data } = await api('/Image?page=76');
+  const images = data.records;
+  debugger
+}
+getArtWorks()
 
 // markup
 const IndexPage = () => {
   return (
     <>
-      <header>
+      {/* <header>
         <h1>hardvard</h1>
-        {/* <nav>
+        <nav>
           buscador
-        </nav> */}
-      </header>
+        </nav>
+      </header> */}
       <main>
         <section>
-          <Styledarticle >
-            <h3>Funerary Relief of a Woman and Two Children</h3>
-            <Styledfigure>
-              <img src={image} alt=""></img>
-              <StyledFigcaptionContainer>
-                <figcaption>1908.3</figcaption>
-                <figcaption>Sculpture</figcaption>
-              </StyledFigcaptionContainer>
-            </Styledfigure>
-          </Styledarticle>
-          <Styledarticle >
-            <h3>Funerary Relief of a Woman and Two Children</h3>
-            <Styledfigure>
-              <img src={image} alt=""></img>
-              <StyledFigcaptionContainer>
-                <figcaption>1908.3</figcaption>
-                <figcaption>Sculpture</figcaption>
-              </StyledFigcaptionContainer>
-            </Styledfigure>
-          </Styledarticle>
-          <Styledarticle >
-            <h3>Funerary Relief of a Woman and Two Children</h3>
-            <Styledfigure>
-              <img src={image} alt=""></img>
-              <div>
-                <figcaption>1908.3</figcaption>
-                <figcaption>Sculpture</figcaption>
-              </div>
-            </Styledfigure>
-          </Styledarticle>
-          <Styledarticle >
-            <h3>Funerary Relief of a Woman and Two Children</h3>
-            <Styledfigure>
-              <img src={image} alt=""></img>
-              <div>
-                <figcaption>1908.3</figcaption>
-                <figcaption>Sculpture</figcaption>
-              </div>
-            </Styledfigure>
-          </Styledarticle>
+          <Article />
         </section>
       </main>
-
     </>
   )
 }
