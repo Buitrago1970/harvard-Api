@@ -30,29 +30,26 @@ const IndexPage = () => {
     var max_page = 7;
     var page = Math.floor(Math.random() * (max_page - min_page + 1) + min_page);
 
-    var min = 0;
+    var min = 1;
     var max = 10;
     var size = Math.floor(Math.random() * (max - min + 1) + min);
     const { data } = await api(`/gallery?page=${page}&size=${size}`);
     const galleryid = data.records[0].galleryid
     const info = await api(`/object?galleryid=${galleryid}`)
 
-    for (let i = 0; i <= 1; i++) {
+    for (let i = 0; i <= 10; i++) {
       var min_page = 1;
       var maxPageObject = info.data.info.pages
       var pageObject = Math.floor(Math.random() * (maxPageObject - min_page + 1) + min_page);
 
-      var min = 0;
+      var min = 1;
       var max = 10;
       var size = Math.floor(Math.random() * (max - min + 1) + min);
 
       const objects = await api(`/object?galleryid=${galleryid}&page=${pageObject}&size=${size}`)
       array.push(objects.data.records)
     }
-    debugger
-    console.log(array);
-
-
+    setImages(array)
     setLoading(false)
   }
   return (

@@ -28,24 +28,40 @@ text-align: center;
     }
     `
 export default function Article({images}) {
-  console.log(images);
+  const imagesF =(item) => {
+    try {
+      if(item.images.length === 0){
+        return <h1>No se encontraron imagenes </h1>
+      }else{
+        if(item.images[0].baseimageurl){
+         return <img src={item.images[0].baseimageurl}></img>
+          }else{
+           return <img src={`${item.images[0].iiifbaseuri}/full/full/0/default.jpg`}> </img>
+          }
+      }
+    } catch (error) {
+      return null
+    }
+
+  }
   return (
-    <Styledarticle >
+  <>
+  
           {images.length > 1 && images.map((itemArray)=>(
             itemArray.map((item) =>(
-              <>
-              <h1>{item.id}</h1>
-            <Styledfigure>
-              <img src={image} alt=""></img>
-              <StyledFigcaptionContainer>
-                <figcaption>1908.3</figcaption>
-                <figcaption>Sculpture</figcaption>
+              <Styledarticle >
+              <h1>{item.title}</h1>
+              <Styledfigure>
+              {imagesF(item)}
+                <StyledFigcaptionContainer>
+                <figcaption>{item.dated}</figcaption>
+                <figcaption>{item.classification}</figcaption>
               </StyledFigcaptionContainer>
             </Styledfigure>
-              </>
+            </Styledarticle>
             ))
           ))}
-
-  </Styledarticle>
+</>
+  
   )
 }
