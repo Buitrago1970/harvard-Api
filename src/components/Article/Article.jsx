@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import image from "../../images/1.jpeg"
+
 // styles
 const Styledarticle = styled.article`
 border: 1px solid #000;
@@ -26,12 +26,46 @@ text-align: center;
     figcaption{
       margin-bottom: 3px;
     }
-    `
+`
+const StyleDivcontainerTextInfoArtWork = styled.div`
+      width: 100%;
+    text-align: center;
+`
+const StyleDivTextInfoArtWork = styled.div`
+  display: flex;
+  justify-content: center;
+  word-break: break-all;
+`
+const StyleDivTextLink = styled.div`
+word-break: break-all;
+    margin: 30px 40px;
+    line-height: 2;
+    a{
+      color: #0012ff;
+    text-decoration: none;
+    }
+`
 export default function Article({images}) {
-  const imagesF =(item) => {
+  const getImages =(item) => {
     try {
       if(item.images.length === 0){
-        return <h1>No se encontraron imagenes </h1>
+       return(
+         <StyleDivcontainerTextInfoArtWork>
+           <StyleDivTextInfoArtWork>
+             <p>Culture: </p>
+             <p>{item.culture}</p>
+           </StyleDivTextInfoArtWork>
+           <StyleDivTextInfoArtWork>
+             <p>{item.people[0].role}: </p>
+             <p>{item.people[0].name}, {item.people[0].birthplace}</p>
+           </StyleDivTextInfoArtWork>
+           <StyleDivTextLink>
+             <p>VER IMAGEN EN:</p>
+             
+               <a href={item.url} target="_blank" >{item.url} </a>
+              </StyleDivTextLink>
+         </StyleDivcontainerTextInfoArtWork>
+       )
       }else{
         if(item.images[0].baseimageurl){
          return <img src={item.images[0].baseimageurl}></img>
@@ -52,7 +86,7 @@ export default function Article({images}) {
               <Styledarticle >
               <h1>{item.title}</h1>
               <Styledfigure>
-              {imagesF(item)}
+              {getImages(item)}
                 <StyledFigcaptionContainer>
                 <figcaption>{item.dated}</figcaption>
                 <figcaption>{item.classification}</figcaption>

@@ -1,9 +1,15 @@
 import * as React from "react"
 import { useState, useEffect } from "react";
 
+import { device } from '../device/device';
+
+import styled from 'styled-components'
 import Article from "../components/Article/Article"
-import "./css/Global.css"
 import axios from 'axios';
+
+import "./css/Global.css"
+
+
 
 const api = axios.create({
   baseURL: 'https://api.harvardartmuseums.org',
@@ -14,6 +20,18 @@ const api = axios.create({
     'apikey': '04ff7f1b-fba1-49cc-bc70-84573e5e0ef6',
   },
 });
+
+//Styles
+
+const StyleSection = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1px;
+@media ${device.tablet} { 
+  display: initial;
+        }
+
+`
 // markup
 const IndexPage = () => {
   const [images, setImages] = useState([])
@@ -37,7 +55,7 @@ const IndexPage = () => {
     const galleryid = data.records[0].galleryid
     const info = await api(`/object?galleryid=${galleryid}`)
 
-    for (let i = 0; i <= 10; i++) {
+    for (let i = 0; i <= 3; i++) {
       var min_page = 1;
       var maxPageObject = info.data.info.pages
       var pageObject = Math.floor(Math.random() * (maxPageObject - min_page + 1) + min_page);
@@ -61,13 +79,13 @@ const IndexPage = () => {
         </nav>
       </header> */}
       <main>
-        <section>
+        <StyleSection>
           {loading ? (
             <h1>Cargando</h1>
           ) : (
             <Article images={images} />
           )}
-        </section>
+        </StyleSection>
       </main>
     </>
   )
