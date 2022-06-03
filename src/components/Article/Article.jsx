@@ -45,7 +45,7 @@ word-break: break-all;
     text-decoration: none;
     }
 `
-export default function Article({images}) {
+export default function Article({images, loading}) {
   const getImages =(item) => {
     try {
       if(item.images.length === 0){
@@ -61,7 +61,6 @@ export default function Article({images}) {
            </StyleDivTextInfoArtWork>
            <StyleDivTextLink>
              <p>VER IMAGEN EN:</p>
-             
                <a href={item.url} target="_blank" >{item.url} </a>
               </StyleDivTextLink>
          </StyleDivcontainerTextInfoArtWork>
@@ -80,8 +79,7 @@ export default function Article({images}) {
   }
   return (
   <>
-  
-          {images.length > 1 && images.map((itemArray)=>(
+          {images.length > 1 ? (images.map((itemArray)=>(
             itemArray.map((item) =>(
               <Styledarticle >
               <h1>{item.title}</h1>
@@ -94,7 +92,7 @@ export default function Article({images}) {
             </Styledfigure>
             </Styledarticle>
             ))
-          ))}
+          ))):(<h1>Cargando...</h1>)}
 </>
   
   )

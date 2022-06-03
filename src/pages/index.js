@@ -37,10 +37,9 @@ const IndexPage = () => {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
 
-
   useEffect(() => {
     getArtWorks()
-  }, [])
+  }, [loading])
 
   async function getArtWorks() {
     const array = images
@@ -49,21 +48,20 @@ const IndexPage = () => {
     var page = Math.floor(Math.random() * (max_page - min_page + 1) + min_page);
 
     var min = 1;
-    var max = 10;
+    var max = 2;
     var size = Math.floor(Math.random() * (max - min + 1) + min);
     const { data } = await api(`/gallery?page=${page}&size=${size}`);
     const galleryid = data.records[0].galleryid
     const info = await api(`/object?galleryid=${galleryid}`)
 
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 1; i++) {
       var min_page = 1;
       var maxPageObject = info.data.info.pages
       var pageObject = Math.floor(Math.random() * (maxPageObject - min_page + 1) + min_page);
 
       var min = 1;
-      var max = 10;
+      var max = 2;
       var size = Math.floor(Math.random() * (max - min + 1) + min);
-
       const objects = await api(`/object?galleryid=${galleryid}&page=${pageObject}&size=${size}`)
       array.push(objects.data.records)
     }
@@ -80,11 +78,10 @@ const IndexPage = () => {
       </header> */}
       <main>
         <StyleSection>
-          {loading ? (
-            <h1>Cargando</h1>
-          ) : (
-            <Article images={images} />
-          )}
+          <Article images={images} loading={loading} />
+          <button onClick={() => setLoading(true)}>
+            Cargar mas
+          </button>
         </StyleSection>
       </main>
     </>
