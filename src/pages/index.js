@@ -92,7 +92,7 @@ const IndexPage = () => {
     const galleryid = data.records[0].galleryid
     const info = await api(`/object?galleryid=${galleryid}`)
 
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 2; i++) {
       var min_page = 1;
       var maxPageObject = info.data.info.pages
       var pageObject = Math.floor(Math.random() * (maxPageObject - min_page + 1) + min_page);
