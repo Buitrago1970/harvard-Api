@@ -50,7 +50,7 @@ word-break: break-all;
     text-decoration: none;
     }
 `
-export default function Article({images}) {
+export default function Article({images, search}) {
   const getImages =(item) => {
     try {
       if(item.images.length === 0){
@@ -100,7 +100,7 @@ export default function Article({images}) {
            
             
             </Styledarticle>
-          ))):(<h1>Cargando...</h1>)}
+          ))):(<h1 className='not-found'>No se Encontraron resultados para "{search}" :(</h1>)}
 </>
   
   )

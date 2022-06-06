@@ -27,15 +27,26 @@ const api = axios.create({
 const StyleSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  button{
+    background: #CFE7fA;
+    background: linear-gradient(to right,#ff0000 0%,#ffffff 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+min-height: 100px;
+font-size: 20px;
+  }
 @media ${device.tablet} { 
   display: initial;
         }
+
 
 `
 const StyleContainerTitle = styled.div`
 padding: 10px;
 color: #747474;
 font-size: 20px;
+display: flex;
+    justify-content: space-between;
   p{
     margin: 0;
   }
@@ -48,7 +59,7 @@ form{
     justify-content: center;
 }
   input{
-    width: 100%;
+    width: 95%;
       height: 40px;
       border: 2px solid #000;
       font-size: 16px;
@@ -96,7 +107,6 @@ const IndexPage = () => {
     setImages(array)
   }
   const handleSearch = async (event) => {
-    console.log(event.key);
     if (event.key === 'Enter') {
       event.preventDefault();
       const response = await api(`/object?title=${search}`)
@@ -110,8 +120,18 @@ const IndexPage = () => {
     <>
       <header>
         <StyleContainerTitle>
-          <p>Harvard</p>
-          <p>API</p>
+          <div>
+            <p>Harvard /</p>
+            <p>API</p>
+          </div>
+          <div>
+            <a href="https://juan-buitrago.netlify.app" target="_blank">
+              <p>By</p>
+              <p>juanbui</p>
+            </a>
+
+          </div>
+
         </StyleContainerTitle>
         <nav>
           <StyleContainerForm>
@@ -134,13 +154,12 @@ const IndexPage = () => {
       <main>
         <StyleSection>
           {imageSearch &&
-            <ArticleSearch images={imagesSearch} />
+            <ArticleSearch images={imagesSearch} search={search} />
           }
           <Article images={images} loading={loading} />
           <button onClick={() => setLoading(true)}>
             Cargar mas
           </button>
-
         </StyleSection>
       </main>
     </>
