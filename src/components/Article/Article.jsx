@@ -84,18 +84,17 @@ export default function Article({images, loading}) {
              
               <Styledarticle key={item.id} >
               <h1>{item.title}</h1>
-
+              <a href={item.url} target="_blank">
               <Styledfigure>
               {getImages(item)}
-              <a href={item.url} target="_blank">
-
                 <StyledFigcaptionContainer>
                 <figcaption>{item.dated}</figcaption>
                 <figcaption>{item.classification}</figcaption>
               </StyledFigcaptionContainer>
-            </a>
 
             </Styledfigure>
+            </a>
+
             </Styledarticle>
            
 
