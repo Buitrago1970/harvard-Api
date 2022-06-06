@@ -79,7 +79,7 @@ export default function Article({images, loading}) {
 
   return (
   <>
-          {images.length > 1 ? (images.map((itemArray)=>(
+          {images.length > 1 &&(images.map((itemArray)=>(
             itemArray.map((item) =>(
              
               <Styledarticle key={item.id} >
@@ -100,7 +100,7 @@ export default function Article({images, loading}) {
            
 
             ))
-          ))):(<h1>Cargando...</h1>)}
+          )))}
 </>
   
   )

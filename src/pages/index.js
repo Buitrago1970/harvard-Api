@@ -150,15 +150,18 @@ const IndexPage = () => {
 
         </nav>
       </header>
-      <main>
+      <main>{loading && <h1>cargando...</h1>}
         <StyleSection>
           {imageSearch &&
             <ArticleSearch images={imagesSearch} search={search} />
           }
           <Article images={images} loading={loading} />
-          <button onClick={() => setLoading(true)}>
-            Cargar mas
-          </button>
+          {loading ? null :
+            <button onClick={() => setLoading(true)}>
+              Cargar mas
+            </button>
+          }
+
         </StyleSection>
       </main>
     </>
