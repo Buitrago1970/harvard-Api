@@ -28,10 +28,9 @@ const StyleSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   button{
-    background: #CFE7fA;
-    background: linear-gradient(to right,#ff0000 0%,#ffffff 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+    min-height: 100px;
+    font-size: 20px;
+    border: 2px solid #000000;
 min-height: 100px;
 font-size: 20px;
   }
