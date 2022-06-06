@@ -5,6 +5,7 @@ import { device } from '../device/device';
 
 import styled from 'styled-components'
 import Article from "../components/Article/Article"
+import ArticleSearch from "../components/ArticleSearch/ArticleSearch"
 import axios from 'axios';
 
 import "./css/Global.css"
@@ -32,10 +33,37 @@ const StyleSection = styled.section`
         }
 
 `
+const StyleContainerTitle = styled.div`
+padding: 10px;
+color: #747474;
+font-size: 20px;
+  p{
+    margin: 0;
+  }
+`
+const StyleContainerForm = styled.div`
+margin: 10px 0;
+form{
+  width: 100%;
+    display: flex;
+    justify-content: center;
+}
+  input{
+    width: 100%;
+      height: 40px;
+      border: 2px solid #000;
+      font-size: 16px;
+      padding-left: 10px;
+  }
+`
 // markup
 const IndexPage = () => {
   const [images, setImages] = useState([])
+  const [imagesSearch, setimagesSearch] = useState([])
   const [loading, setLoading] = useState(true)
+  const [imageSearch, setLoaimageSearch] = useState(false)
+  const [search, setSearch] = useState('')
+
 
   useEffect(() => {
     getArtWorks()
@@ -65,23 +93,53 @@ const IndexPage = () => {
       const objects = await api(`/object?galleryid=${galleryid}&page=${pageObject}&size=${size}`)
       array.push(objects.data.records)
     }
-    setImages(array)
     setLoading(false)
+    setImages(array)
   }
+  useEffect(() => {
+    setLoaimageSearch(false)
+    const delayDebounceFn = setTimeout(async () => {
+      const response = await api(`/object?title=${search}`)
+      setimagesSearch(response.data.records)
+      setLoaimageSearch(true)
+    }, 2000)
+    return () => clearTimeout(delayDebounceFn)
+  }, [search])
+
   return (
     <>
-      {/* <header>
-        <h1>hardvard</h1>
+      <header>
+        <StyleContainerTitle>
+          <p>Harvard</p>
+          <p>API</p>
+        </StyleContainerTitle>
         <nav>
-          buscador
+          <StyleContainerForm>
+            <form className="container-serch">
+              <span className="icon">
+              </span>
+              <input
+                type="text"
+                placeholder="Gallery Numbers, Artist, Key"
+                id="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </form>
+          </StyleContainerForm>
+
         </nav>
-      </header> */}
+      </header>
       <main>
         <StyleSection>
+          {imageSearch &&
+            <ArticleSearch images={imagesSearch} />
+          }
           <Article images={images} loading={loading} />
           <button onClick={() => setLoading(true)}>
             Cargar mas
           </button>
+
         </StyleSection>
       </main>
     </>

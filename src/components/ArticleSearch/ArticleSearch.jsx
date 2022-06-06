@@ -45,7 +45,7 @@ word-break: break-all;
     text-decoration: none;
     }
 `
-export default function Article({images, loading}) {
+export default function Article({images}) {
   const getImages =(item) => {
     try {
       if(item.images.length === 0){
@@ -77,11 +77,10 @@ export default function Article({images, loading}) {
     }
 
   }
-
+  debugger
   return (
   <>
-          {images.length > 1 ? (images.map((itemArray)=>(
-            itemArray.map((item) =>(
+          {images.length > 0 ? (images.map((item)=>(
               <Styledarticle key={item.id} >
               <h1>{item.title}</h1>
               <Styledfigure>
@@ -92,7 +91,6 @@ export default function Article({images, loading}) {
               </StyledFigcaptionContainer>
             </Styledfigure>
             </Styledarticle>
-            ))
           ))):(<h1>Cargando...</h1>)}
 </>
   
