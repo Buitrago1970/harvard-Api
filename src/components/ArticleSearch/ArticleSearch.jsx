@@ -7,6 +7,11 @@ border: 1px solid #000;
 border-bottom: none;
 padding: 10px;
 background: white;
+.busqueda{
+  color: red;
+  font-size: 13px;
+    text-align: end;
+}
 
 `
 const Styledfigure = styled.figure`
@@ -77,19 +82,23 @@ export default function Article({images}) {
     }
 
   }
-  debugger
   return (
   <>
           {images.length > 0 ? (images.map((item)=>(
               <Styledarticle key={item.id} >
-              <h1>{item.title}</h1>
+                <p className='busqueda'>{'-Busqueda-'}</p>
+                <h1>{item.title}</h1>
               <Styledfigure>
               {getImages(item)}
+              <a href={item.url} target="_blank">
                 <StyledFigcaptionContainer>
                 <figcaption>{item.dated}</figcaption>
                 <figcaption>{item.classification}</figcaption>
               </StyledFigcaptionContainer>
+              </a>
             </Styledfigure>
+           
+            
             </Styledarticle>
           ))):(<h1>Cargando...</h1>)}
 </>

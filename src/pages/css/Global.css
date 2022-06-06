@@ -1,7 +1,9 @@
 
 body{
     margin: 0;
+    padding: 0;
     background-color: #F5F5F5;
+    box-sizing: border-box;
 }
 h1{
     color: #000000;
@@ -10,4 +12,7 @@ h1{
 h3{
     text-align: center;
     font-size: 18px;
+}
+a{
+    text-decoration: none;
 }

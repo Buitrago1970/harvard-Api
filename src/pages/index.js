@@ -27,7 +27,6 @@ const api = axios.create({
 const StyleSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 1px;
 @media ${device.tablet} { 
   display: initial;
         }
@@ -76,19 +75,19 @@ const IndexPage = () => {
     var page = Math.floor(Math.random() * (max_page - min_page + 1) + min_page);
 
     var min = 1;
-    var max = 2;
+    var max = 10;
     var size = Math.floor(Math.random() * (max - min + 1) + min);
     const { data } = await api(`/gallery?page=${page}&size=${size}`);
     const galleryid = data.records[0].galleryid
     const info = await api(`/object?galleryid=${galleryid}`)
 
-    for (let i = 0; i <= 1; i++) {
+    for (let i = 0; i <= 3; i++) {
       var min_page = 1;
       var maxPageObject = info.data.info.pages
       var pageObject = Math.floor(Math.random() * (maxPageObject - min_page + 1) + min_page);
 
       var min = 1;
-      var max = 2;
+      var max = 10;
       var size = Math.floor(Math.random() * (max - min + 1) + min);
       const objects = await api(`/object?galleryid=${galleryid}&page=${pageObject}&size=${size}`)
       array.push(objects.data.records)
@@ -96,15 +95,16 @@ const IndexPage = () => {
     setLoading(false)
     setImages(array)
   }
-  useEffect(() => {
-    setLoaimageSearch(false)
-    const delayDebounceFn = setTimeout(async () => {
+  const handleSearch = async (event) => {
+    console.log(event.key);
+    if (event.key === 'Enter') {
+      event.preventDefault();
       const response = await api(`/object?title=${search}`)
       setimagesSearch(response.data.records)
       setLoaimageSearch(true)
-    }, 2000)
-    return () => clearTimeout(delayDebounceFn)
-  }, [search])
+
+    }
+  }
 
   return (
     <>
@@ -124,6 +124,7 @@ const IndexPage = () => {
                 id="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyDownCapture={handleSearch}
               />
             </form>
           </StyleContainerForm>

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-
 // styles
 const Styledarticle = styled.article`
 border: 1px solid #000;
@@ -82,16 +81,24 @@ export default function Article({images, loading}) {
   <>
           {images.length > 1 ? (images.map((itemArray)=>(
             itemArray.map((item) =>(
+             
               <Styledarticle key={item.id} >
               <h1>{item.title}</h1>
+
               <Styledfigure>
               {getImages(item)}
+              <a href={item.url} target="_blank">
+
                 <StyledFigcaptionContainer>
                 <figcaption>{item.dated}</figcaption>
                 <figcaption>{item.classification}</figcaption>
               </StyledFigcaptionContainer>
+            </a>
+
             </Styledfigure>
             </Styledarticle>
+           
+
             ))
           ))):(<h1>Cargando...</h1>)}
 </>
