@@ -25,24 +25,6 @@ const StyledFigcaptionContainer = styled.div`
     margin-bottom: 3px;
   }
 `;
-const StyleDivcontainerTextInfoArtWork = styled.div`
-  width: 100%;
-  text-align: center;
-`;
-const StyleDivTextInfoArtWork = styled.div`
-  display: flex;
-  justify-content: center;
-  word-break: break-all;
-`;
-const StyleDivTextLink = styled.div`
-  word-break: break-all;
-  margin: 30px 40px;
-  line-height: 2;
-  a {
-    color: #0012ff;
-    text-decoration: none;
-  }
-`;
 export default function Article({ images }) {
   const getImages = (item) => {
     try {
